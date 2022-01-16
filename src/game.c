@@ -39,31 +39,44 @@ void	build_image(t_data *info, int key)
 ** for left and right player(+=r*sin(@), +=-rcos(@)) => phi
 */
 
-int		update(int key, t_data *info)
+int		render(t_data *info)
 {
 	float xcord;
 	float ycord;
 
-	xcord = cos(info->player->rotangle) * (BO / 3);
-	ycord = sin(info->player->rotangle) * (BO / 3);
+	xcord = cos(info->player->rotangle) * (BO / 4);
+	ycord = sin(info->player->rotangle) * (BO / 4);
 	get_new_image(info);
-	if (key == LEFT)
-		info->player->rotangle -= 0.1;
-	else if (key == RIGHT)
-		info->player->rotangle += 0.1;
-	else if (key == WKEY)
+	if (info->key == LEFT)
+		info->player->rotangle -= 0.09;
+	else if (info->key == RIGHT)
+		info->player->rotangle += 0.09;
+	else if (info->key == WKEY)
 		check_next_pos_up(info, xcord, ycord);
-	else if (key == SKEY)
+	else if (info->key == SKEY)
 		check_next_pos_up(info, -xcord, -ycord);
-	else if (key == AKEY)
+	else if (info->key == AKEY)
 		check_next_pos_up(info, ycord, -xcord);
-	else if (key == DKEY)
+	else if (info->key == DKEY)
 		check_next_pos_up(info, -ycord, xcord);
-	else if (key == ENTER)
-		info->dark = (info->dark == 0) ? 1 : 0;
-	else if (key == 53)
+	else if (info->key == 53)
 		free_exit(info);
-	build_image(info, key);
+	build_image(info, info->key);
+	return (1);
+}
+
+int keypress(int key, t_data *info)
+{
+	info->key = key;
+	if (info->key == ENTER)
+		info->dark = (info->dark == 0) ? 1 : 0;
+	return (1);
+}
+
+int keyrelease(int key, t_data *info)
+{
+	(void)key;
+	info->key = -1;
 	return (1);
 }
 
@@ -76,7 +89,9 @@ int		update(int key, t_data *info)
 
 void	game_loop(t_data *info)
 {
-	mlx_hook(info->win_ptr, 2, 0, update, info);
+	mlx_loop_hook(info->mlx_ptr, render, info);
+	mlx_hook(info->win_ptr, 2, 0, keypress, info);
+	mlx_hook(info->win_ptr, 3, 0, keyrelease, info);
 	mlx_hook(info->win_ptr, 17, 0, free_exit, info);
 	mlx_loop(info->mlx_ptr);
 }

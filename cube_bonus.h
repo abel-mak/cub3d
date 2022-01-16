@@ -151,6 +151,7 @@ typedef struct	s_data
 	int			dark;
 	float		trans_x;
 	float		trans_y;
+	int         key;
 }				t_data;
 
 typedef	struct	s_li

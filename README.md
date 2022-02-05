@@ -1,7 +1,7 @@
 # cub3d
 Raycasting in c. 
 # Demo
-[video](https://youtu.be/uem27oIxFng)
+[https://youtu.be/uem27oIxFng](https://youtu.be/uem27oIxFng)
 ![](cub3d.gif)
 
 

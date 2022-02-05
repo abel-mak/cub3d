@@ -31,6 +31,7 @@
 # define DKEY 2
 # define WKEY 13
 # define SKEY 1
+# define INIT_KEY -2
 
 /*
 ** FOV is 60 degree in radians

@@ -44,6 +44,8 @@ int		render(t_data *info)
 	float xcord;
 	float ycord;
 
+	if (info->key == -1)
+		return (1);
 	xcord = cos(info->player->rotangle) * (BO / 4);
 	ycord = sin(info->player->rotangle) * (BO / 4);
 	get_new_image(info);

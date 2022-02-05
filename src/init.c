@@ -31,6 +31,7 @@ t_data	*init_info(char **argv)
 	info->player->pos->y = 0;
 	info->player->rotangle = (float)0;
 	info->map = cub_file->map;
+	info->key = INIT_KEY;
 	info->img_ptr = mlx_new_image(info->mlx_ptr, info->cub_file->w_width,
 			info->cub_file->w_height);
 	info->data = (int*)mlx_get_data_addr(info->img_ptr, &(info->bits_per_pixel),
